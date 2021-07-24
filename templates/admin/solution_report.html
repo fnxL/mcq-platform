@@ -1,0 +1,133 @@
+ 
+ 
+{% load filters %}
+{% for i,j in data %}
+    
+ 
+   <h1>
+   {% if not j|getval:'choice' %}{{j|getval:'choice'}}{% endif %}</h1>
+    <div class="card card-bordered mb-5">
+        <div class="card-header ribbon">
+            <h5 class="card-title"><span class="text-primary me-2">Q{{forloop.counter}}.</span>{{i.text}}</h5>
+            {% if i.image %}
+                <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.image.url}}"/>
+            {% endif %}
+             <div class="ribbon-label bg-primary">{{i.marks}} Marks</div>
+        </div>
+        <div class="card-body">
+ 
+        {% if i.question_type is 1 %}
+            
+            <div class="form-check form-check-custom form-check-solid mb-5 {% if j|getval:'choice' is 1 %}{% if not j|getval:'correct' %} alert border-2 border-danger alert-danger py-2 {% endif %} {% endif %}{% if i.correct_option is 1 %} alert border-2 border-success alert-success py-2{% endif %}">
+                <input {% if j|getval:'choice' is 1 %} checked="checked" {% endif %} disabled class="form-check-input mx-3" type="radio" id="option1" name="{{i.text}}" value="1"/>
+                {% if not i.option1 and not i.option1_image %}
+                {% elif not i.option1 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option1_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="form-check-label">
+                    {{i.option1}}
+                    </label>
+                {% endif %}
+                
+            </div>
+            
+            <div class="form-check form-check-custom form-check-solid mb-5 {% if j|getval:'choice' is 2 %}{% if not j|getval:'correct' %} alert border-2 border-danger alert-danger py-2 {% endif %} {% endif %}{% if i.correct_option is 2 %} alert border-2 border-success alert-success py-2{% endif %}">
+                <input {% if j|getval:'choice' is 2 %} checked="checked" {% endif %}  disabled class="form-check-input mx-3" type="radio" id="option2"  name="{{i.text}}" value="2"/>
+                {% if not i.option2 and not i.option2_image %}
+                {% elif not i.option2 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option2_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="form-check-label" for="option2">
+                    {{i.option2}}
+                    </label>
+                {% endif %}
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-5 {% if j|getval:'choice' is 3 %}{% if not j|getval:'correct' %} alert border-2 border-danger alert-danger py-2 {% endif %} {% endif %}{% if i.correct_option is 3 %} alert border-2 border-success alert-success py-2{% endif %}">
+                <input {% if j|getval:'choice' is 3 %} checked="checked" {% endif %} disabled class="form-check-input mx-3" type="radio" id="option3" name="{{i.text}}"  value="3"/>
+                {% if not i.option3 and not i.option3_image %}
+                {% elif not i.option3 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option3_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="form-check-label" for="option3">
+                    {{i.option3}}
+                    </label>
+                {% endif %}
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-5 {% if j|getval:'choice' is 4 %}{% if not j|getval:'correct' %} alert border-2 border-danger alert-danger py-2 {% endif %} {% endif %}{% if i.correct_option is 4 %} alert border-2 border-success alert-success py-2{% endif %}">
+                <input {% if j|getval:'choice' is 4 %} checked="checked" {% endif %} disabled class="form-check-input mx-3" type="radio" id="option4"  name="{{i.text}}" value="4"/>
+                {% if not i.option4 and not i.option4_image %}
+                {% elif not i.option4 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option4_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="form-check-label" for="option4">
+                    {{i.option4}}
+                    </label>
+                {% endif %}
+            </div>
+        {% elif i.question_type is 2 %}
+        <div class="form-check form-check-custom form-check-solid mb-5 {% if 1 in j|getval:'choice_list' and 1 in j|getval:'correct_list' %}alert border-2 border-success alert-success py-2 {% elif 1 in j|getval:'correct_list' %}alert border-2 border-success alert-success py-2 {% elif 1 in j|getval:'choice_list' and 1 not in j|getval:'correct_list' %}alert border-2 border-danger alert-danger py-2{% else %} {% endif %}">
+            <input {% if 1 in j|getval:'choice_list' %} checked {% endif %} disabled class="form-check-input mx-3" type="checkbox" name="{{i.text}}" id="option1" value="1"/>
+            {% if not i.option1 and not i.option1_image %}
+            {% elif not i.option1 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option1_image.url}}"/>
+            {% else %}
+                    <label style="font-weight:500;" class="form-check-label" for="option1">
+                    {{i.option1}}
+                    </label>
+            {% endif %}
+        </div>
+        <div class="form-check form-check-custom form-check-solid mb-5 {% if 2 in j|getval:'choice_list' and 2 in j|getval:'correct_list' %}alert border-2 border-success alert-success py-2 {% elif 2 in j|getval:'correct_list' %}alert border-2 border-success alert-success py-2 {% elif 2 in j|getval:'choice_list' and 2 not in j|getval:'correct_list' %}alert border-2 border-danger alert-danger py-2{% else %} {% endif %}">
+            <input {% if 2 in j|getval:'choice_list' %} checked {% endif %} disabled class="form-check-input mx-3" type="checkbox" name="{{i.text}}" id="option2" value="2"/>
+            {% if not i.option2 and not i.option2_image %}
+            {% elif not i.option2 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option2_image.url}}"/>
+            {% else %}
+                    <label style="font-weight:500;" class="form-check-label" for="option2">
+                    {{i.option2}}
+                    </label>
+            {% endif %}
+        </div>
+        <div class="form-check form-check-custom form-check-solid mb-5 {% if 3 in j|getval:'choice_list' and 3 in j|getval:'correct_list' %}alert border-2 border-success alert-success py-2 {% elif 3 in j|getval:'correct_list' %}alert border-2 border-success alert-success py-2 {% elif 3 in j|getval:'choice_list' and 3 not in j|getval:'correct_list' %}alert border-2 border-danger alert-danger py-2{% else %} {% endif %}">
+            <input {% if 3 in j|getval:'choice_list' %} checked {% endif %} disabled class="form-check-input mx-3" type="checkbox" name="{{i.text}}" id="option3" value="3"/>
+            {% if not i.option3 and not i.option3_image %}
+            {% elif not i.option3 %}
+                <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option3_image.url}}"/>
+            {% else %}
+                <label style="font-weight:500;" class="form-check-label" for="option3">
+                {{i.option3}}
+                </label>
+            {% endif %}
+        </div>
+        <div class="form-check form-check-custom form-check-solid mb-5 {% if 4 in j|getval:'choice_list' and 4 in j|getval:'correct_list' %}alert border-2 border-success alert-success py-2 {% elif 4 in j|getval:'correct_list' %}alert border-2 border-success alert-success py-2 {% elif 4 in j|getval:'choice_list' and 4 not in j|getval:'correct_list' %}alert border-2 border-danger alert-danger py-2{% else %} {% endif %}" >
+            <input {% if 4 in j|getval:'choice_list' %} checked {% endif %} disabled class="form-check-input mx-3" type="checkbox" name="{{i.text}}" id="option4" value="4"/>
+            {% if not i.option4 and not i.option4_image %}
+            {% elif not i.option4 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option4_image.url}}"/>
+            {% else %}
+                    <label style="font-weight:500;" class="form-check-label" for="option4">
+                    {{i.option4}}
+                    </label>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="">
+         <label class="fw-bold {% if not j|getval:'user_ans' == i.correct_answer%} text-danger {% else %}text-success {% endif %}">Your Answer</label>
+         <input class="form-control{% if j|getval:'user_ans' == i.correct_answer %}border-success border-2 {% else %} border-danger border-2{% endif %} mb-2" disabled style="width:50%;" placeholder="{{j|getval:'user_ans'}}"/>
+         {% if not j|getval:'user_ans' == i.correct_answer%}
+            <label class="text-success fw-bold">Correct Answer</label>
+            <input type="text" style="width:50%;" disabled class="border-success border-2 form-control" placeholder="{{i.correct_answer}}">
+         
+         {% endif %}
+         
+        </div>
+
+        {% endif %}
+   
+ 
+        </div>
+         
+    </div>
+    
+ 
+
+{% endfor %}

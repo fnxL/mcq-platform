@@ -1,0 +1,28 @@
+.ribbon {
+    position: relative;
+}
+
+.ribbon .ribbon-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    background-color: #009ef7;
+    box-shadow: 0 -1px 5px 0 rgb(0 0 0 / 10%);
+    color: #fff;
+    top: 50%;
+    right: 0;
+    transform: translateX(5px) translateY(-50%);
+}
+
+table {
+    width: 100%;
+}
+.ellipsis {
+    position: relative;
+}
+.first {
+    width: 50%;
+}

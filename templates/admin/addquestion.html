@@ -1,0 +1,271 @@
+{% extends 'base.html' %} {% block title %}Manage Question{% endblock title %}
+{% block content %} {% include 'admin/navbar.html' %}
+
+<div class="container">
+    <div class="card mt-6">
+        <div class="card-header bg-white border-bottom-0">
+            <a href="{% url 'test_view' tid %}">Go Back</a><br><br>
+            <h1 class="fw-bolder text-dark">Add Question</h1>
+        </div>
+        <div class="card-body mt-0">
+            <form action="" enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+
+                <div
+                    class="
+                        d-flex
+                        flex-column
+                        mb-5
+                        fv-row fv-plugins-icon-container
+                    "
+                >
+                    <label class="fs-5 fw-bold mb-2">Question</label>
+                    <textarea
+                        class="form-control form-control-solid"
+                        rows="6"
+                        name="text"
+                        placeholder=""
+                    ></textarea>
+
+                    <input
+                        class="form-control mt-3"
+                        style="width:30%;!important"
+                        type="file"
+                        id="formFile"
+                        name="image"
+                    />
+                    <div class="row mb-3 mt-3">
+                        <div class="col-md-6 fv-row">
+                            <label class="fs-5 fw-bold mb-1">Marks</label>
+                            <select
+                                name="marks"
+                                class="form-select form-select-solid"
+                                style="width: 62% !important"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                            >
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <label class="fs-5 fw-bold mb-1"
+                        >Select Question Type</label
+                    >
+                    <select
+                        id="qtype"
+                        name="question_type"
+                        class="form-select form-select-solid"
+                        style="width: 30% !important"
+                        data-hide-search="true"
+                        data-placeholder="Select an option"
+                    >
+                        <option value="1">MCQ</option>
+                        <option value="2">MSQ</option>
+                        <option value="3">NAT</option>
+                    </select>
+                </div>
+                <!--end::Input group-->
+
+                <div
+                    id="MCQ"
+                    class="
+                        d-flex
+                        flex-column
+                         
+                        fv-row fv-plugins-icon-container
+                    "
+                >
+                    <!--begin::Input group-->
+                    <div class="row ">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row fv-plugins-icon-container">
+                            <!--begin::Label-->
+                            <label class="fs-5 fw-bold mb-1">Option 1</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input
+                                type="text"
+                                class="form-control form-control-solid"
+                                placeholder=""
+                                name="option1"
+                            />
+                            <input
+                                class="form-control mt-2"
+                                style="width:100%;!important"
+                                type="file"
+                                name="option1_image"
+                                id="formFile"
+                            />
+                            <!--end::Input-->
+                            <div
+                                class="
+                                    fv-plugins-message-container
+                                    invalid-feedback
+                                "
+                            ></div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row fv-plugins-icon-container">
+                            <!--end::Label-->
+                            <label class="fs-5 fw-bold mb-1">Option 2</label>
+                            <!--end::Label-->
+                            <!--end::Input-->
+                            <input
+                                type="text"
+                                class="form-control form-control-solid"
+                                placeholder=""
+                                name="option2"
+                            />
+                            <input
+                                class="form-control mt-2"
+                                style="width:100%;!important"
+                                type="file"
+                                name="option2_image"
+                                id="formFile"
+                            />
+                            <!--end::Input-->
+                            <div
+                                class="
+                                    fv-plugins-message-container
+                                    invalid-feedback
+                                "
+                            ></div>
+                        </div>
+                        <!--end::Col-->
+                        <div class="col-md-6 fv-row fv-plugins-icon-container mt-2">
+                            <!--begin::Label-->
+                            <label class="fs-5 fw-bold mb-1">Option 3</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input
+                                type="text"
+                                class="form-control form-control-solid"
+                                placeholder=""
+                                name="option3"
+                            />
+                            <input
+                                class="form-control mt-2"
+                                style="width:100%;!important"
+                                type="file"
+                                name="option3_image"
+                                id="formFile"
+                            />
+                            <!--end::Input-->
+                            <div
+                                class="
+                                    fv-plugins-message-container
+                                    invalid-feedback
+                                "
+                            ></div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row fv-plugins-icon-container mt-2">
+                            <!--end::Label-->
+                            <label class="fs-5 fw-bold mb-1">Option 4</label>
+                            <!--end::Label-->
+                            <!--end::Input-->
+                            <input
+                                type="text"
+                                class="form-control form-control-solid"
+                                placeholder=""
+                                name="option4"
+                            />
+                            <input
+                                class="form-control mt-2"
+                                style="width:100%;!important"
+                                type="file"
+                                id="formFile"
+                                name="option4_image"
+                            />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+
+                        <div class="d-flex flex-column fv-row mt-2">
+                            <!--begin::Label-->
+                            <label class="fs-5 fw-bold">Correct Option</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input
+                                type="text"
+                                class="form-control form-control-solid"
+                                style="width: 30% !important"
+                                placeholder=""
+                                name="correct_option"
+                            />
+
+                            <!--end::Input-->
+                        </div>
+                    </div>
+                </div>
+
+                {% comment %} NATS {% endcomment %}
+                <div
+                    class="d-flex flex-column fv-row"
+                    id="nat"
+                    style="display: none !important"
+                >
+                    <!--begin::Label-->
+                    <label class="fs-5 fw-bold">Correct Answer</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input
+                        type="text"
+                        class="form-control form-control-solid"
+                        style="width: 30% !important"
+                        placeholder=""
+                        name="correct_answer"
+                    />
+
+                    <!--end::Input-->
+                </div>
+
+                <!--end::Input group-->
+                <div class="d-flex flex-column mb-5 fv-row mt-2">
+                    <!--begin::Submit-->
+                    <button
+                        type="submit"
+                        class="btn btn-primary mt-3"
+                        id="kt_contact_submit_button"
+                    >
+                        <!--begin::Indicator-->
+                         Add
+                        <!--end::Indicator-->
+                    </button>
+                </div>
+                <!--end::Submit-->
+                <div></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--begin::Input group-->
+
+{% endblock content %} 
+
+{% block scripts %}
+<script
+    src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+    crossorigin="anonymous"
+></script>
+
+<script>
+    $("#qtype").change(function () {
+        if ($(this).val() == "3") {
+            $("#nat").attr("style", "display:none");
+            $("#MCQ").attr("style", "display:none!important");
+        } else {
+            $("#nat").attr("style", "display:none!important");
+            $("#MCQ").show();
+        }
+    });
+</script>
+{% endblock scripts %}

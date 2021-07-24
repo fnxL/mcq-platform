@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block title %}Manage {% if request.path == '/admin/manage/practice/' %}Practice Tests {% else %} Grand Tests{% endif %}
+{% endblock title %} 
+
+{% block content %} 
+ 
+{% include 'admin/navbar.html' %}
+
+<div class="container">
+    <div class="card mt-6">
+        <div class="card-header bg-white border-bottom-0 py-4">
+            <h4 class="mb-0">
+                Manage {% if request.path == '/admin/manage/practice/' %}
+                Practice Tests {% else %} Grand Tests {% endif %}
+            </h4>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table text-nowrap my-3" id="myTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Questions</th>
+                        <th>Marks</th>
+                        <th>Time</th>
+                        <th>Created Date</th>
+                        <th class="align-middle text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+				{% for i in tests %}
+				<tr>
+					<td class="align-middle">
+					<h5 class="fw-bold">{{i.name}}</h5>
+					</td>
+					<td class="align-middle"><span class="badge bg-primary ms-4">{{i.number_of_question}}</span></td>
+					<td class="align-middle"><span class="badge bg-success ms-2">{{i.max_marks}}</span></td>
+					<td class="align-middle"><span class="badge bg-warning" style="margin-left: -0.7rem;">{{i.time_limit}} hr(s)</span></td>
+					<td class="align-middle">{{i.created}}</td>
+					<td class="align-middle text-center">
+					<div class="d-grid gap-2 d-md-block">
+					<a href="{% url 'test_view' i.id %}" class="btn btn-sm btn-primary">View</a>
+					<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal{{i.id}}">Delete</button>
+					<div>
+					
+					</td>
+
+
+				</tr>
+									<!-- Modal -->
+					<div class="modal fade" id="modal{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Delete - {{i.name}}</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<h4>Are you sure you want to delete {{i.name}} ?</h4>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<a href="{% url 'delete_test' i.id %}" class="btn btn-primary">Delete</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				{% endfor %}
+				
+				</tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+<script>
+var table = $('#myTable').DataTable({"dom": '<"wrapper"ftir<"row d-flex justify-content-center align-items-center text-end"<"col"p><"col"l>>>'});
+
+$('#tableSearch').on( 'keyup', function () {
+    table.search( this.value ).draw();
+} );
+</script>
+{% endblock scripts %}
+

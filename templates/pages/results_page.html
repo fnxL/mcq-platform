@@ -1,0 +1,85 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Results {%endblock title %} {% block content %} {% include 'partials/navbar.html' %}
+
+<div class="container">
+    <div class="row mt-6">
+        <div class="col">
+            <div class="card">
+                 
+                <div class="card-header bg-white border-bottom py-4">
+                    <h4 class="mb-0">Results for {{name}}</h4>
+                    <div class="card-body">
+                        <table class="table text-nowrap my-3" id="myTable">
+                            <thead
+                                class="
+                                    table-light
+                                    border-gray-200
+                                    fs-5
+                                    fw-bold
+                                    bg-lighten
+                                "
+                            >
+                                <tr>
+                                    <th>Attempt Date</th>
+                                    <th>Correct Questions</th>
+                                    <th>Incorrect Questions</th>
+                                    <th>Time Taken</th>
+                                    <th>Final Score</th>
+                                    <th>Analysis</th>
+                                </tr>
+                            </thead>
+                            <tbody class="fw-bold">
+                                {% for res in results %}
+                                <tr>
+                                    <td class="align-middle">
+                                        <a
+                                            href="{% url 'report' res.test.id res.id %}"
+                                            class="
+                                                text-hover-primary text-gray-600
+                                            "
+                                            >{{res.date}}</a
+                                        >
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="badge bg-success fs-6"
+                                            >{{res.correct_questions}}</span
+                                        >
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="badge bg-danger fs-6"
+                                            >{{res.incorrect_questions}}</span
+                                        >
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="badge bg-primary fs-6"
+                                            >{{res.total_time_taken}}</span
+                                        >
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span
+                                            class="
+                                                badge bg-success
+                                                fs-6
+                                            "
+                                            >{{res.total_marks}}</span
+                                        >
+                                    </td>
+                                    <td class="align-middle text-center" >
+                                        <a
+                                            href="{% url 'report' res.test.id res.id %}"
+                                            class="btn btn-warning"
+                                            >View</a
+                                        >
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

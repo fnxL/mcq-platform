@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}
+{% if request.path == '/view_test/practice' %} Practice Tests {% else %} Grand Tests {% endif %}
+
+{% endblock title %}
+
+
+
+{% block content %}
+
+{% include 'partials/navbar.html' %}
+<div class="container"> 
+    <div class="row mt-6">
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-white border-bottom-0 py-4">
+                    <h4 class="mb-0">List of {% if request.path == '/view_test/practice' %} Practice Tests {% else %} Grand Tests {% endif %}</h4>
+                    
+                </div>
+                <div class="card-body" >
+                    <table class="table text-nowrap my-3" id="myTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Questions</th>
+                                <th>Marks</th>
+                                <th class="align-middle text-center">Attempt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in tests %}
+                            <tr>
+                                <td class="align-middle">
+                                    <h5 class="fw-bold">{{i.name}}</h5>
+                                </td>
+                                <td class="align-middle">
+                                    <span class="badge bg-primary ms-4"
+                                        >{{i.number_of_question}}</span
+                                    >
+                                </td>
+                                <td class="align-middle">
+                                    <span class="badge bg-warning ms-2"
+                                        >{{i.max_marks}}</span
+                                    >
+                                </td>
+                                <td class="align-middle text-center">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{i.id}}">
+                                            Start Test
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+<div>
+
+{% for i in tests %}
+
+<!-- Modal -->
+<div class="modal fade" id="modal{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{i.name}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h4 class="modal-title mb-3">Are you sure you want to start this test?</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Questions</th>
+                    <th>Duration</th>
+                    <th>Marks</th>
+                    <th>Topic</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td><span class="badge bg-primary">{{i.number_of_question}}</span></td>
+            <td><span class="badge bg-warning">{{i.time_limit}} hr(s)</span></td>
+            <td><span class="badge bg-success">{{i.max_marks}}</span></td>
+            <td>{{i.topics}}</td>
+            </tr>
+            </tbody>
+        
+        
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="{% url 'start_test' i.id %}" class="btn btn-primary">Start</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+ 
+
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+<script>
+var table = $('#myTable').DataTable({"dom": '<"wrapper"ftir<"row d-flex justify-content-center align-items-center text-end"<"col"p><"col"l>>>'});
+
+$('#tableSearch').on( 'keyup', function () {
+    table.search( this.value ).draw();
+} );
+</script>
+
+{% endblock scripts %}
+

@@ -1,0 +1,109 @@
+{% extends 'base.html' %} {% block title %}Create Test{% endblock title %} 
+{%block content %} {% include 'admin/navbar.html' %}
+
+<div class="container">
+    <div class="card mt-6">
+        <div class="card-header bg-white border-bottom-0 py-4">
+            <h1 class="fw-bolder mb-">Create Test</h1>
+        </div>
+        <div class="card-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="d-flex flex-column fv-row mt-5">
+                    <!--begin::Label-->
+                    <label class="fs-5 fw-bold">Name</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input
+                        type="text"
+                        class="form-control form-control-solid"
+                        placeholder=""
+                        name="name"
+                    />
+
+                    <!--end::Input-->
+                </div>
+                <div class="row mb-5 mt-5">
+                    <div class="col-md-3 fv-row">
+                        <label class="fs-5 fw-bold mb-2">Type</label>
+                        <select
+                            name="test_type"
+                            class="form-select form-select-solid"
+                            style="width: 100% !important"
+                            data-hide-search="true"
+                            data-placeholder="Select an option"
+                        >
+                            <option value="1">Practice Test</option>
+                            <option value="2">Grand Test</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 fv-row">
+                        <label class="fs-5 fw-bold mb-2">Marks</label>
+
+                        <input
+                            type="number"
+                            class="form-control form-control-solid"
+                            placeholder=""
+                            name="max_marks"
+                        />
+                    </div>
+                    <div class="col-md-3 fv-row">
+                        <label class="fs-5 fw-bold mb-2"
+                            >Number of Questions</label
+                        >
+
+                        <input
+                            type="number"
+                            class="form-control form-control-solid"
+                            placeholder=""
+                            name="number_of_question"
+                        />
+                    </div>
+                    <div class="col-md-3 fv-row">
+                        <label class="fs-5 fw-bold mb-2"
+                            >Time Limit (in hr)</label
+                        >
+
+                        <input
+                            type="number"
+                            class="form-control form-control-solid"
+                            placeholder=""
+                            name="time_limit"
+                        />
+                    </div>
+                </div>
+                <div
+                    class="
+                        d-flex
+                        flex-column
+                        mb-10
+                        fv-row fv-plugins-icon-container
+                    "
+                >
+                    <label class="fs-6 fw-bold mb-2">Topics</label>
+                    <textarea
+                        class="form-control form-control-solid"
+                        rows="6"
+                        name="topics"
+                        placeholder=""
+                    ></textarea>
+                </div>
+                <div class="d-flex flex-column mb-5 fv-row mt-5">
+                    <!--begin::Submit-->
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        
+                    >
+                        <!--begin::Indicator-->
+                        Create
+      
+                        <!--end::Indicator-->
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

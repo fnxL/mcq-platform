@@ -1,0 +1,338 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Report -
+{{result.test.name}} {% endblock title %} {% load filters %} {% block content %}
+{% include 'partials/navbar.html' %}
+
+<div class="container">
+    <h1 class="mb-5 mt-5">Report - {{result.test.name}}</h1>
+    <div class="card">
+        <ul
+            class="nav nav-line-bottom"
+            id="pills-tab-nav-justify-second"
+            role="tablist"
+        >
+            <li class="nav-item">
+                <a
+                    class="nav-link active"
+                    id="xd"
+                    data-bs-toggle="pill"
+                    href="#tabAnalysis"
+                    role="tab"
+                    aria-controls="tabAnalysis"
+                    aria-selected="true"
+                    >Analysis</a
+                >
+            </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link"
+                    id="xd2"
+                    data-bs-toggle="pill"
+                    href="#report"
+                    role="tab"
+                    aria-controls="report"
+                    aria-selected="false"
+                    >Report</a
+                >
+            </li>
+        </ul>
+
+        <div class="card-body">
+            <div class="tab-content">
+                <div
+                    class="tab-pane fade active show"
+                    id="tabAnalysis"
+                    role="tabpanel"
+                >
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div
+                                class="
+                                    h-100
+                                    border
+                                    bg-light-success
+                                     
+                                    text-center
+                                    rounded
+                                    pt-4
+                                    pb-2
+                                "
+                            >
+                                <div class="title">
+                                    <h1 class="fs-1 mb-7 fw-bold text-success">
+                                        Score
+                                    </h1>
+                                </div>
+                                <div style="margin-top: 4rem">
+                                    <h1
+                                        class="
+                                            mt-5 
+                                            fw-bold
+ 
+                                        "
+                                        >{{result.total_marks}} /
+                                        {{result.test.max_marks }}</h1
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <div
+                                        class="
+                                            border
+                                            bg-light-warning
+                                            text-center
+                                            rounded
+                                            py-4  
+                                            
+                                        "
+                                    >
+                                        <h1
+                                            class="
+                                                fs-5
+                                                mb-5
+                                                fw-bold
+                                                text-warning
+                                            "
+                                        >
+                                            Questions Attempted
+                                        </h1>
+                                        <h3
+                                            class="
+                                                 
+                                                fw-bold
+                                                text-warning
+                                                 
+                                            "
+                                            >{{result.total_attempted}}</h3
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="
+                                            border
+                                            bg-light-danger
+                                            text-center
+                                            rounded
+                                            py-4  
+                                        "
+                                    >
+                                        <h1
+                                            class="
+                                                fs-5
+                                                mb-5
+                                                fw-bold
+                                                text-danger
+                                            "
+                                        >
+                                            Questions Left
+                                        </h1>
+                                        <h3
+                                            class="
+                                                 
+                                                fw-bolder
+                                                text-danger
+                                                 
+                                            "
+                                            >{{result.questions_left}}</h3
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="
+                                            border
+                                            bg-light-success
+                                            text-center
+                                            rounded
+                                            py-4  
+                                        "
+                                    >
+                                        <h1
+                                            class="
+                                                fs-5
+                                                mb-5
+                                                fw-bold
+                                                text-success
+                                            "
+                                        >
+                                            Correct Marks
+                                        </h1>
+                                        <h3
+                                            class="
+                                                 
+                                                fw-bold
+                                                text-success
+                                                 
+                                            "
+                                            >+{{result.correct_marks}}</h3
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="
+                                            border
+                                            bg-light-danger
+                                            text-center
+                                            rounded
+                                            py-4  
+                                        "
+                                    >
+                                        <h1
+                                            class="
+                                                fs-5
+                                                mb-5
+                                                fw-bold
+                                                text-danger
+                                            "
+                                        >
+                                            Negative Marks
+                                        </h1>
+                                        <h3
+                                            class="
+                                                 
+                                                fw-bold 
+                                                text-danger
+                                                
+                                            "
+                                            >-{{result.negative_marks}}</h3
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div
+                                        class="
+                                            border
+                                            bg-light-info
+                                            text-center
+                                            rounded
+                                            py-4
+                                            mt-3
+                                            mb-0
+                                        "
+                                    >
+                                        <h1 class="fs-5 mb-5 fw-bold text-info">
+                                            Correct Questions
+                                        </h1>
+                                        <h3
+                                            class="
+                                                 
+                                                fw-bold 
+                                                text-info
+                                                counted
+                                            "
+                                            >{{result.correct_questions}}</h3
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="
+                                            border
+                                            bg-light-danger
+                                            text-center
+                                            rounded
+                                            py-4
+                                            mt-3
+                                            mb-0
+                                        "
+                                    >
+                                        <h1
+                                            class="
+                                                fs-5
+                                                mb-5
+                                                fw-bold
+                                                text-danger
+                                            "
+                                        >
+                                            Incorrect Questions
+                                        </h1>
+                                        <h3
+                                            class="
+                                                 
+                                                fw-bold
+                                                text-danger
+                                                 
+                                            "
+                                            >{{result.incorrect_questions}}</h3
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="
+                                            border
+                                            bg-light-info
+                                            text-center
+                                            rounded
+                                            py-4
+                                            mt-3
+                                            mb-0
+                                        "
+                                    >
+                                        <h1 class="fs-5 mb-5 fw-bold text-info">
+                                            Time Taken
+                                        </h1>
+                                        <h3
+                                            class="
+                                                 
+                                                fw-bold 
+                                                text-gray-800
+                                                counted
+                                            "
+                                            >{{time}}</h3
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div
+                                        class="
+                                            border
+                                            bg-light-primary
+                                            text-center
+                                            rounded
+                                            py-4
+                                            mt-3
+                                            mb-0
+                                        "
+                                    >
+                                        <h1
+                                            class="
+                                                fs-5
+                                                mb-5
+                                                fw-bold
+                                                text-primary
+                                            "
+                                        >
+                                            Final Marks
+                                        </h1>
+                                        <h3
+                                            class="
+                                                 
+                                                fw-bold 
+                                                text-primary
+                                                
+                                            "
+                                            >{{result.total_marks}}</h3
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="report" role="tabrole">
+                    {% include 'admin/solution_report.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    {% endblock content %}
+</div>

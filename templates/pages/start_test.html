@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %}{{test.name}}{% endblock title %}
+
+{% block content %}
+{% include 'partials/navbar.html' %}
+
+<div class="container">
+
+<div class="page_title mb-5"><h1 style="margin-top:2rem">{{test.name}}</h1>
+    <span class="text-gray-600 fw-bold">{{test.topics}}</span> <br>
+    <span class="text-gray-600 fw-bold">Marks: </span><span class="badge bg-primary fw-bold">{{test.max_marks}}</span>
+    <h1 style="margin-top:1rem">Time Left: <a class="text-danger" id="dmin">{{ mins }}</a> mins <a class="text-danger" id="dsec">0</a> secs</a></h1>
+    
+</div> 
+<form  method="POST" id="testForm">
+{% csrf_token %}
+
+{% for i in question_list %}
+
+<div class="card mb-5">
+    <div class="card-header ribbon">
+    <h5 class="card-title"><span class="text-primary me-2">Q{{forloop.counter}}.</span>{{i.text}}</h5>
+    {% if i.image %}
+        <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.image.url}}"/>
+    {% endif %}
+        <div class="ribbon-label bg-primary">{{i.marks}} Marks</div>
+    </div>
+    <div class="card-body">
+    {% if i.question_type is 1 %}
+            <div class="form-check form-check-custom form-check-solid mb-5">
+                <input class="form-check-input" type="radio" id="option1{{i.text}}" name="{{i.text}}" value="1"/>
+                {% if not i.option1 and not i.option1_image %}
+                {% elif not i.option1 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option1_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option1{{i.text}}">
+                    {{i.option1}}
+                    </label>
+                {% endif %}
+                
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-5">
+                <input class="form-check-input" type="radio" id="option2{{i.text}}"  name="{{i.text}}" value="2"/>
+                {% if not i.option2 and not i.option2_image %}
+                {% elif not i.option2 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option2_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option2{{i.text}}">
+                    {{i.option2}}
+                    </label>
+                {% endif %}
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-5">
+                <input class="form-check-input" type="radio" id="option3{{i.text}}" name="{{i.text}}"  value="3"/>
+                {% if not i.option3 and not i.option3_image %}
+                {% elif not i.option3 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option3_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option3{{i.text}}">
+                    {{i.option3}}
+                    </label>
+                {% endif %}
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-5">
+                <input class="form-check-input" type="radio" id="option4{{i.text}}"  name="{{i.text}}" value="4"/>
+                {% if not i.option4 and not i.option4_image %}
+                {% elif not i.option4 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option4_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option4{{i.text}}">
+                    {{i.option4}}
+                    </label>
+                {% endif %}
+            </div>
+        {% elif i.question_type is 2 %}
+        <div class="form-check form-check-custom form-check-solid mb-5">
+            <input class="form-check-input" type="checkbox" name="{{i.text}}" id="option1{{i.text}}" value="1"/>
+            {% if not i.option1 and not i.option1_image %}
+            {% elif not i.option1 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option1_image.url}}"/>
+            {% else %}
+                    <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option1{{i.text}}">
+                    {{i.option1}}
+                    </label>
+            {% endif %}
+        </div>
+        <div class="form-check form-check-custom form-check-solid mb-5">
+            <input class="form-check-input" type="checkbox" name="{{i.text}}" id="option2{{i.text}}" value="2"/>
+            {% if not i.option2 and not i.option2_image %}
+            {% elif not i.option2 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option2_image.url}}"/>
+            {% else %}
+                    <label style="font-weight:500;" class=" text-gray-800 form-check-label" for="option2{{i.text}}">
+                    {{i.option2}}
+                    </label>
+            {% endif %}
+        </div>
+        <div class="form-check form-check-custom form-check-solid mb-5">
+            <input class="form-check-input" type="checkbox" name="{{i.text}}" id="option3{{i.text}}" value="3"/>
+            {% if not i.option3 and not i.option3_image %}
+            {% elif not i.option3 %}
+                <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option3_image.url}}"/>
+            {% else %}
+                <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option3{{i.text}}">
+                {{i.option3}}
+                </label>
+            {% endif %}
+        </div>
+        <div class="form-check form-check-custom form-check-solid mb-5">
+            <input class="form-check-input" type="checkbox" name="{{i.text}}" id="option4{{i.text}}" value="4"/>
+            {% if not i.option4 and not i.option4_image %}
+            {% elif not i.option4 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option4_image.url}}"/>
+            {% else %}
+                    <label style="font-weight:500;" class="text-gray-800    form-check-label" for="option4{{i.text}}">
+                    {{i.option4}}
+                    </label>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="mb-10">
+            <label class="form-label">Enter your answer</label>
+            <input type="text" class="form-control form-control-solid" name="{{i.text}}" placeholder="0 if other than NAT">
+        </div>
+
+        {% endif %}
+    
+    </div>
+</div>
+
+
+{% endfor %}
+<input type="hidden" value="{{ test.name}}" name="test_name">
+        <input type="hidden" value="{{ test }}" name="test_obj">
+        <input type="hidden" value="" id="time_taken" name="time_taken">
+        <input type="hidden" id="mins" value="{{ mins }}">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">Submit</button>
+  <!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Submit Answers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to submit?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+ 
+</div>
+{% comment %}  {% endcomment %}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+ 
+    <div class="container" id="kt_content_container">
+    
+    <form method="POST" id="testForm">
+        {% csrf_token %}
+ 
+ 
+        
+    </div>
+</div>
+
+
+<script>
+window.onbeforeunload = function() { return "Your work will be lost."; };
+        var milisec = 0;
+        var seconds = 0;
+        var elapsed = 0;
+        var temp = document.getElementById("mins").value;
+        var minutes = Math.trunc(temp);
+        function display() {
+            if (minutes == 0 && seconds == 0) {
+                window.onbeforeunload = undefined
+                document.getElementById("testForm").submit();
+            }
+            if (seconds == 0) {
+                minutes = minutes - 1
+                seconds = 60
+            }
+            seconds -= 1
+            elapsed += 1 //seconds
+            document.getElementById("time_taken").value = elapsed
+            document.getElementById("dsec").innerHTML = seconds
+            document.getElementById("dmin").innerHTML = minutes
+
+            setTimeout("display()", 1000)
+        }
+            
+        display()
+</script>
+
+{% endblock content %}

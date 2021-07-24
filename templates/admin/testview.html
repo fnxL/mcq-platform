@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Manage {{tests.name}}{% endblock title %}
+
+{% block content %}
+
+{% include 'admin/navbar.html' %} 
+
+<div class="container">
+<div class="page_title ">
+<h1 style="margin-top:2rem">{{tests.name}}</h1>
+<span class="text-gray-600 fw-bold">{{tests.topics}}</span>
+</div>
+
+<div class="card mt-6">
+<div class="card-body">
+    <div class="row">
+            <div class="col">
+                <div class="border bg-light-primary text-center rounded py-4">
+                    <h2 class="fs-4 fw-bold text-primary">Total Questions</h2>
+                    <h1 class="fw-bold text-primary mt-5">{{count}}</h1>
+                </div>
+            </div>
+            <div class="col">
+                    <div class="border bg-light-danger text-center rounded py-4">
+                    <h2 class="fs-4 fw-bold text-danger">Duration</h2>
+                    <h1 class="fw-bold text-danger mt-5">{{tests.time_limit}} hr(s)</h1>
+                </div>
+            </div>
+            <div class="col">
+                    <div class="border bg-light-info text-center rounded py-4">
+                    <h2 class="fs-4 fw-bold text-info">Marks</h2>
+                    <h1 class="fw-bold text-info mt-5">{{tests.max_marks}}</h1>
+                </div>
+            </div>
+            <div class="col">
+                    <div class="border bg-light-warning text-center rounded py-4">
+                    <h2 class="fs-4 fw-bold text-warning">Total Questions</h2>
+                    <h1 class="fw-bold text-warning mt-5">{{count}}</h1>
+                </div>
+            </div>
+    </div>
+
+ 
+ </div>
+</div>
+<div class="card mt-5">
+<div class="card-body table-responsive">
+<div class="d-flex flex-row-reverse"><a href="{% url 'add_question' tests.id %}" type="button" class="btn btn-primary"> Add Question </a></div>
+
+<div class="">
+<table class="table text-nowrap my-3" id="myTable">
+    <thead class="table-light">
+        <tr>
+            <th>Question</th>
+            <th>Type</th>
+            <th>Marks</th>
+            <th>Negative</th>
+            <th>Correct Answer</th>
+            <th class="align-middle text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody class="fw-bold text-gray-600">
+        {% for i in questions %}
+        <tr>
+        <td class="text-gray-800" style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:600px;">{{i.text}}</td>
+        <td>{% if i.question_type is 1 %}MCQ {% elif i.question_type is 2%}MSQ {% else %} NAT {% endif %}</td>
+        <td>{{i.marks}}</td>
+        <td>{{i.negative_marks}}</td>
+        <td>{% if i.question_type is 1 or 2 %}{{i.correct_option}}{% else %}{{i.corect_answer}}{% endif %}</td>
+        <td>
+        <div class="d-grid gap-2 d-md-block">
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalv{{i.id}}">View</button>
+		<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modald{{i.id}}">Delete</button>
+					
+					<div></td>
+        </tr>
+
+        <div class="modal fade" id="modalv{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-scrollable" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Q{{forloop.counter}}</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body p-5">
+									<div class="card">
+    <div class="card-header ribbon">
+    <h5 class="card-title"><span class="text-primary me-2">Q{{forloop.counter}}.</span>{{i.text}}</h5>
+    {% if i.image %}
+        <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.image.url}}"/>
+    {% endif %}
+        <div class="ribbon-label bg-primary">{{i.marks}} Marks</div>
+    </div>
+    <div class="card-body">
+    {% if i.question_type is 1 %}
+            <div class="form-check form-check-custom form-check-solid mb-5">
+                <input class="form-check-input" type="radio" id="option1{{i.text}}" name="{{i.text}}" value="1"/>
+                {% if not i.option1 and not i.option1_image %}
+                {% elif not i.option1 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option1_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option1{{i.text}}">
+                    {{i.option1}}
+                    </label>
+                {% endif %}
+                
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-5">
+                <input class="form-check-input" type="radio" id="option2{{i.text}}"  name="{{i.text}}" value="2"/>
+                {% if not i.option2 and not i.option2_image %}
+                {% elif not i.option2 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option2_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option2{{i.text}}">
+                    {{i.option2}}
+                    </label>
+                {% endif %}
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-5">
+                <input class="form-check-input" type="radio" id="option3{{i.text}}" name="{{i.text}}"  value="3"/>
+                {% if not i.option3 and not i.option3_image %}
+                {% elif not i.option3 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option3_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option3{{i.text}}">
+                    {{i.option3}}
+                    </label>
+                {% endif %}
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-5">
+                <input class="form-check-input" type="radio" id="option4{{i.text}}"  name="{{i.text}}" value="4"/>
+                {% if not i.option4 and not i.option4_image %}
+                {% elif not i.option4 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option4_image.url}}"/>
+                {% else %}
+                    <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option4{{i.text}}">
+                    {{i.option4}}
+                    </label>
+                {% endif %}
+            </div>
+        {% elif i.question_type is 2 %}
+        <div class="form-check form-check-custom form-check-solid mb-5">
+            <input class="form-check-input" type="checkbox" name="{{i.text}}" id="option1{{i.text}}" value="1"/>
+            {% if not i.option1 and not i.option1_image %}
+            {% elif not i.option1 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option1_image.url}}"/>
+            {% else %}
+                    <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option1{{i.text}}">
+                    {{i.option1}}
+                    </label>
+            {% endif %}
+        </div>
+        <div class="form-check form-check-custom form-check-solid mb-5">
+            <input class="form-check-input" type="checkbox" name="{{i.text}}" id="option2{{i.text}}" value="2"/>
+            {% if not i.option2 and not i.option2_image %}
+            {% elif not i.option2 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option2_image.url}}"/>
+            {% else %}
+                    <label style="font-weight:500;" class=" text-gray-800 form-check-label" for="option2{{i.text}}">
+                    {{i.option2}}
+                    </label>
+            {% endif %}
+        </div>
+        <div class="form-check form-check-custom form-check-solid mb-5">
+            <input class="form-check-input" type="checkbox" name="{{i.text}}" id="option3{{i.text}}" value="3"/>
+            {% if not i.option3 and not i.option3_image %}
+            {% elif not i.option3 %}
+                <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option3_image.url}}"/>
+            {% else %}
+                <label style="font-weight:500;" class="text-gray-800 form-check-label" for="option3{{i.text}}">
+                {{i.option3}}
+                </label>
+            {% endif %}
+        </div>
+        <div class="form-check form-check-custom form-check-solid mb-5">
+            <input class="form-check-input" type="checkbox" name="{{i.text}}" id="option4{{i.text}}" value="4"/>
+            {% if not i.option4 and not i.option4_image %}
+            {% elif not i.option4 %}
+                    <img class="img-thumbnail img-fluid" style="margin-left: 5px;" src="{{i.option4_image.url}}"/>
+            {% else %}
+                    <label style="font-weight:500;" class="text-gray-800    form-check-label" for="option4{{i.text}}">
+                    {{i.option4}}
+                    </label>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="mb-10">
+            <label class="form-label">Enter your answer</label>
+            <input type="text" class="form-control form-control-solid" name="{{i.text}}" placeholder="0 if other than NAT">
+        </div>
+
+        {% endif %}
+    
+    </div>
+</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<a href="{% url 'delete_question' tests.id i.id %}" class="btn btn-primary">Delete</a>
+								</div>
+							</div>
+						</div>
+					</div>
+         
+					<div class="modal fade" id="modald{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Delete Question</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<h4>Are you sure you want to delete this question?</h4>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<a href="{% url 'delete_question' tests.id i.id %}" class="btn btn-primary">Delete</a>
+								</div>
+							</div>
+						</div>
+					</div>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+ 
+{% endblock content %}
+{% block scripts %}
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+<script>
+var table = $('#myTable').DataTable({"dom": '<"wrapper"ftir<"row d-flex justify-content-center align-items-center text-end"<"col"p><"col"l>>>'});
+
+$('#tableSearch').on( 'keyup', function () {
+    table.search( this.value ).draw();
+} );
+</script>
+{% endblock scripts %}
