@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = 'yp304l!8kun01=6uyw%f@3^7tgq0824v9&_$ija77^$9oezl_+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['mcq-platform.herokuapp.com', 'localhost']
+#ALLOWED_HOSTS = ['mcq-platform.herokuapp.com', 'localhost']
  
 
 MEDIA_URL = '/media/'
@@ -143,6 +143,6 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
- 
+#STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
  
