@@ -58,6 +58,7 @@
 * Detailed statistical analysis and solution report for user
 * Auto Submit Test if user is out of time.
 * Users can attempt a test for multiple number of times.
+* Using imgur as a cloud image storage for image uploads.
 
 ### To do
 
@@ -101,15 +102,11 @@
 * Django 3.2
 * HTML, CSS , JS, Bootstrap
 
-##Getting Started
+## Getting Started
 
-###Prerequisites
+### Prerequisites
 
 You should have latest version of python installed.
-
-```
-pip install django
-```
 
 ### Installation
 
@@ -166,4 +163,5 @@ Project Link - https://github.com/fnxL/mcq-platform
 * Boostrap 5
 * Dash UI bootstrap UI Kit
 * Datatables
+* [Imgurstorage for django](https://github.com/preetamherald/django-imgur) 
 * Font Awesome
