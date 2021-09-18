@@ -1,6 +1,9 @@
 # MCQ Platform
 
-### This project is deprecated and no longer maintained, a revised SaaS version will soon be available.
+### 🔴 This project is deprecated and no longer maintained, a revised SaaS version will soon be available.
+
+
+<hr/>
 
 **A digital platform to create & attemp tests for practice along with detailed statistical analysis report, designed specifically for GATE Exam**
 
