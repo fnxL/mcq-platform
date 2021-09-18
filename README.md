@@ -1,6 +1,8 @@
 # MCQ Platform
 
-**The project is a digital platform to create & attemp tests for practice along with detailed statistical analysis report, designed specifically for GATE Exam**
+### This project is deprecated and no longer maintained, a revised SaaS version will soon be available.
+
+**A digital platform to create & attemp tests for practice along with detailed statistical analysis report, designed specifically for GATE Exam**
 
 [Demo](https://mcq-platform.herokuapp.com/)
 
